@@ -97,7 +97,12 @@
     targetTiltX = Math.max(-14, Math.min(14, -normY * 14));
   }
 
+  let lastTouchTime = 0;
+  window.addEventListener('touchstart', () => { lastTouchTime = Date.now(); }, { passive: true });
+
   window.addEventListener('mousemove', (e) => {
+    // Ignore simulated mouse events on touch devices
+    if (Date.now() - lastTouchTime < 500) return;
     updatePointer(e.clientX, e.clientY);
   }, { passive: true });
 
