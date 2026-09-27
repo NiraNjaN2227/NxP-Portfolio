@@ -1,0 +1,450 @@
+/* ==========================================================================
+   NIRANJAN P. — COMPUTATIONAL INTELLIGENCE LAB
+   Austensor-inspired design system
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #000;
+  color: #d4d4d8;
+}
+
+/* --------------------------------------------------------------------------
+   Glass Panel
+   -------------------------------------------------------------------------- */
+.lab-panel {
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  backdrop-filter: blur(20px) saturate(1.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.06),
+    0 24px 48px -12px rgba(0,0,0,0.8);
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1),
+              transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+
+.lab-panel.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Subtle top-edge highlight */
+.lab-panel::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 10%; right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12) 50%, transparent);
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   Lab Button
+   -------------------------------------------------------------------------- */
+.lab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.04);
+  font-family: 'Roboto Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16,1,0.3,1);
+  white-space: nowrap;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  text-transform: uppercase;
+}
+
+.lab-btn:hover {
+  border-color: rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+
+.lab-btn:active { transform: scale(0.97); }
+
+/* --------------------------------------------------------------------------
+   Lab Tag (skill chip)
+   -------------------------------------------------------------------------- */
+.lab-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.03);
+  font-family: 'Roboto Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.65);
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+}
+
+.lab-tag:hover {
+  border-color: rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+/* --------------------------------------------------------------------------
+   Section Headers
+   -------------------------------------------------------------------------- */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+}
+
+.section-header-sm {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.section-label {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  font-weight: 700;
+}
+
+.section-title {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.section-title-sm {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+/* --------------------------------------------------------------------------
+   Info Row (About section)
+   -------------------------------------------------------------------------- */
+.info-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.info-label {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #52525b;
+}
+
+.info-value {
+  font-size: 13px;
+  color: #d4d4d8;
+}
+
+/* --------------------------------------------------------------------------
+   Experience bullet
+   -------------------------------------------------------------------------- */
+.exp-item {
+  position: relative;
+  padding-left: 16px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: #a1a1aa;
+}
+
+.exp-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.25);
+}
+
+/* --------------------------------------------------------------------------
+   Project Cards (Accordion / <details>)
+   -------------------------------------------------------------------------- */
+.project-card {
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.02);
+  overflow: hidden;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.project-card[open] {
+  border-color: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.04);
+}
+
+.project-card:hover {
+  border-color: rgba(255,255,255,0.2);
+}
+
+.project-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+
+.project-summary::-webkit-details-marker { display: none; }
+
+.project-body {
+  padding: 0 16px 16px 32px;
+}
+
+/* --------------------------------------------------------------------------
+   Skill Group
+   -------------------------------------------------------------------------- */
+.skill-group {
+  background: rgba(255,255,255,0.015);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  padding: 20px;
+  transition: border-color 0.3s ease;
+}
+
+.skill-group:hover {
+  border-color: rgba(255,255,255,0.15);
+}
+
+.skill-group-title {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #fff;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+}
+
+/* --------------------------------------------------------------------------
+   Interest Card
+   -------------------------------------------------------------------------- */
+.interest-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.interest-card:hover {
+  border-color: rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.05);
+  transform: translateY(-2px);
+}
+
+/* --------------------------------------------------------------------------
+   Scrollbar
+   -------------------------------------------------------------------------- */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.15); }
+
+/* --------------------------------------------------------------------------
+   3D Interactive Kinetic Typography & Gyroscopic Hologram
+   -------------------------------------------------------------------------- */
+.hero-name-container {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  touch-action: none;
+}
+
+/* Holographic 3D Gyroscope behind name */
+.hero-gyro-3d {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 130%;
+  height: 150%;
+  transform: translate(-50%, -50%) translateZ(-50px);
+  transform-style: preserve-3d;
+  pointer-events: none;
+  opacity: 0.45;
+  transition: opacity 0.5s ease;
+}
+
+.hero-name-container:hover .hero-gyro-3d {
+  opacity: 0.85;
+}
+
+.gyro-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  transform-style: preserve-3d;
+  box-sizing: border-box;
+}
+
+.gyro-ring-1 {
+  width: 105%;
+  height: 105%;
+  margin-top: -52.5%;
+  margin-left: -52.5%;
+  border: 1px dashed rgba(0, 229, 255, 0.35);
+  animation: gyroSpin1 24s linear infinite;
+  box-shadow: 0 0 25px rgba(0, 229, 255, 0.1);
+}
+
+.gyro-ring-2 {
+  width: 120%;
+  height: 120%;
+  margin-top: -60%;
+  margin-left: -60%;
+  border: 1px dotted rgba(245, 158, 11, 0.3);
+  animation: gyroSpin2 32s linear infinite reverse;
+}
+
+.gyro-ring-3 {
+  width: 90%;
+  height: 90%;
+  margin-top: -45%;
+  margin-left: -45%;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-top-color: rgba(0, 229, 255, 0.6);
+  border-bottom-color: rgba(0, 229, 255, 0.6);
+  animation: gyroSpin3 18s linear infinite;
+}
+
+@keyframes gyroSpin1 {
+  0% { transform: rotateX(65deg) rotateY(15deg) rotateZ(0deg); }
+  100% { transform: rotateX(65deg) rotateY(15deg) rotateZ(360deg); }
+}
+
+@keyframes gyroSpin2 {
+  0% { transform: rotateX(25deg) rotateY(60deg) rotateZ(0deg); }
+  100% { transform: rotateX(25deg) rotateY(60deg) rotateZ(360deg); }
+}
+
+@keyframes gyroSpin3 {
+  0% { transform: rotateX(75deg) rotateY(-30deg) rotateZ(0deg); }
+  100% { transform: rotateX(75deg) rotateY(-30deg) rotateZ(360deg); }
+}
+
+/* 3D Title & Letter Spans */
+.name-3d-title {
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  transform-style: preserve-3d;
+  will-change: transform;
+  display: block;
+  user-select: none;
+  cursor: pointer;
+}
+
+.name-line {
+  display: block;
+  transform-style: preserve-3d;
+  white-space: nowrap;
+  letter-spacing: -0.03em;
+}
+
+.char-3d {
+  display: inline-block;
+  position: relative;
+  transform-style: preserve-3d;
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  font-weight: 700;
+  will-change: transform, text-shadow, filter;
+  transition: transform 0.12s cubic-bezier(0.2, 0.8, 0.2, 1),
+              color 0.2s ease,
+              filter 0.2s ease;
+  color: #ffffff;
+  /* Multi-layer sculpted 3D depth */
+  text-shadow:
+    0 1px 1px rgba(0,0,0,0.9),
+    0 2px 4px rgba(0,0,0,0.9),
+    0 0 15px rgba(255,255,255,0.2);
+}
+
+.char-3d.active-hover {
+  color: #ffffff;
+  filter: drop-shadow(0 0 16px rgba(0, 229, 255, 0.95)) drop-shadow(0 0 30px rgba(0, 229, 255, 0.4));
+}
+
+.char-3d.ripple-wave {
+  animation: charWave 0.65s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes charWave {
+  0% {
+    transform: translateZ(0px) scale(1) rotateX(0deg);
+  }
+  40% {
+    transform: translateZ(55px) scale(1.3) rotateX(-20deg) rotateY(15deg);
+    color: #38bdf8;
+    filter: drop-shadow(0 0 25px rgba(56, 189, 248, 1));
+  }
+  100% {
+    transform: translateZ(0px) scale(1) rotateX(0deg);
+  }
+}
+
+/* Spark Particle */
+.name-spark {
+  position: fixed;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  background: #38bdf8;
+  box-shadow: 0 0 10px #38bdf8, 0 0 20px #0ea5e9;
+  will-change: transform, opacity;
+}
+
+/* Subtle hint label below name */
+.name-hint {
+  opacity: 0.6;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.hero-name-container:hover .name-hint {
+  opacity: 0.95;
+  transform: translateY(2px);
+}
+

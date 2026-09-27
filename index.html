@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth bg-black">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Niranjan Purushothaman — Software Developer & AI Engineer</title>
+  <meta name="description"
+    content="Portfolio of Niranjan Purushothaman — Software Developer & AI Engineer from Chennai, India." />
+
+  <link rel="icon" type="image/png" href="assets/favicon.svg.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Syne:wght@700;800&family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['"Roboto Mono"', 'monospace'],
+            display: ['"Space Grotesk"', 'sans-serif'],
+          }
+        }
+      }
+    };
+  </script>
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body class="text-zinc-300 font-sans antialiased overflow-x-hidden selection:bg-cyan-900/50 selection:text-white">
+
+  <!-- 3D Particle Canvas -->
+  <div id="webgl-container" class="fixed inset-0 z-0 pointer-events-none"></div>
+  <!-- Edge vignette (expanded for edge-to-edge starfield) -->
+  <div
+    class="fixed inset-0 z-0 pointer-events-none bg-[radial-gradient(ellipse_at_center,transparent_75%,rgba(0,0,0,0.85)_100%)]">
+  </div>
+
+  <!-- Rocket Overlay Canvas -->
+  <canvas id="rocket-canvas" class="fixed inset-0 z-20 pointer-events-none"></canvas>
+
+  <!-- Scrollable Content -->
+  <main class="relative z-10 w-full" id="scroll-container">
+
+    <!-- ═══════════════════════════════════════════════
+         HERO
+         ═══════════════════════════════════════════════ -->
+    <header class="min-h-screen flex flex-col items-center justify-center relative px-6">
+
+      <!-- Top bar -->
+      <div class="absolute top-6 left-6 right-6 flex justify-between items-center">
+        <div id="system-online-badge" class="flex items-center gap-3 cursor-pointer group pointer-events-auto" title="Launch Rocket!">
+          <div class="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.9)] animate-pulse group-hover:scale-125 transition-transform"></div>
+          <span class="font-mono text-[10px] tracking-[0.15em] text-zinc-500 uppercase group-hover:text-emerald-400 transition-colors">System Online</span>
+        </div>
+        <span class="font-mono text-[10px] tracking-[0.15em] text-zinc-600 uppercase hidden sm:block">Bangalore, India —
+          12.97°N 77.59°E</span>
+      </div>
+
+      <!-- Center -->
+      <div class="text-center flex flex-col items-center">
+        <p class="font-mono text-[11px] tracking-[0.3em] text-zinc-500 uppercase mb-6">Portfolio / 2026</p>
+        <!-- 3D Interactive Name Container -->
+        <div class="hero-name-container relative select-none mb-6" id="hero-name-wrap">
+          <!-- 3D Holographic Gyroscope Background Elements -->
+          <div class="hero-gyro-3d pointer-events-none" aria-hidden="true">
+            <div class="gyro-ring gyro-ring-1"></div>
+            <div class="gyro-ring gyro-ring-2"></div>
+            <div class="gyro-ring gyro-ring-3"></div>
+          </div>
+
+          <h1 id="hero-3d-name" class="name-3d-title font-display text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight text-white leading-[1.05]" aria-label="Niranjan Purushothaman">
+            <span class="name-line" data-text="Niranjan">Niranjan</span>
+            <span class="name-line" data-text="Purushothaman">Purushothaman</span>
+          </h1>
+
+          <!-- Interactive Hint Badge -->
+          <div class="name-hint font-mono text-[9px] tracking-[0.2em] text-cyan-400/60 uppercase mt-2 pointer-events-none flex items-center justify-center gap-1.5">
+            <i class="fa-solid fa-wand-magic-sparkles text-[8px] text-cyan-400"></i>
+            <span>Tap My Name</span>
+          </div>
+        </div>
+        <p class="text-sm md:text-base text-zinc-400 font-light max-w-lg leading-relaxed mb-10">
+          Software Developer & AI Engineer building intelligent systems that turn unstructured data into actionable
+          insight.
+        </p>
+
+        <!-- Nav Buttons -->
+        <div class="flex flex-wrap justify-center gap-3">
+          <a href="#about" class="lab-btn group">
+            <i class="fa-solid fa-user text-cyan-400 text-[10px] group-hover:scale-125 transition-transform"></i>
+            Profile
+          </a>
+          <a href="#experience" class="lab-btn group">
+            <i class="fa-solid fa-briefcase text-amber-300 text-[10px] group-hover:scale-125 transition-transform"></i>
+            Experience
+          </a>
+          <a href="#projects" class="lab-btn group">
+            <i class="fa-solid fa-cube text-violet-400 text-[10px] group-hover:scale-125 transition-transform"></i>
+            Projects
+          </a>
+          <a href="#skills" class="lab-btn group">
+            <i
+              class="fa-solid fa-microchip text-emerald-400 text-[10px] group-hover:scale-125 transition-transform"></i>
+            Skills
+          </a>
+          <a href="#contact" class="lab-btn group">
+            <i
+              class="fa-solid fa-satellite-dish text-rose-400 text-[10px] group-hover:scale-125 transition-transform"></i>
+            Contact
+          </a>
+        </div>
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="absolute bottom-10 flex flex-col items-center gap-2 animate-bounce opacity-40">
+        <i class="fa-solid fa-chevron-down text-[10px] text-white"></i>
+      </div>
+    </header>
+
+    <!-- Content Panels -->
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 pb-32 space-y-20 mt-12">
+
+      <!-- ═══════════════════════════════════════════════
+           ABOUT
+           ═══════════════════════════════════════════════ -->
+      <section id="about" class="scroll-mt-20">
+        <div class="lab-panel p-6 sm:p-10">
+          <div class="section-header">
+            <span class="section-label text-cyan-400">01</span>
+            <h2 class="section-title">About Me</h2>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-5 gap-10">
+            <!-- Bio -->
+            <div class="md:col-span-3 space-y-4">
+              <p class="text-sm text-zinc-300 leading-relaxed">
+                I am a Computer Science graduate with experience in software development, application integration,
+                backend development, database management and AI-powered solutions.
+              </p>
+              <p class="text-sm text-zinc-400 leading-relaxed">
+                Proficient in designing and implementing reliable software solutions across the SDLC, with strong capabilities in system integration, problem-solving, troubleshooting, and technical documentation. Experienced in translating business requirements into scalable solutions.
+              </p>
+            </div>
+
+            <!-- Quick Facts -->
+            <div class="md:col-span-2 space-y-5">
+              <div class="info-row">
+                <span class="info-label">Location</span>
+                <span class="info-value">Bangalore, India</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Email</span>
+                <a href="mailto:niran27405@gmail.com"
+                  class="info-value text-cyan-400 hover:text-cyan-300 transition-colors">niran27405@gmail.com</a>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Phone</span>
+                <span class="info-value">+91 8946034384</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Languages</span>
+                <span class="info-value">Tamil · English (Fluent) · Telugu</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Education -->
+          <div class="mt-10 pt-8 border-t border-white/10">
+            <h3 class="font-mono text-[10px] tracking-[0.2em] text-white uppercase mb-5">Education</h3>
+            <div class="flex flex-col sm:flex-row sm:items-start gap-4">
+              <div
+                class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-graduation-cap text-cyan-400"></i>
+              </div>
+              <div>
+                <p class="text-sm text-white font-medium">B.E. in Computer Science and Engineering</p>
+                <p class="text-xs text-zinc-400 mt-1">Sathyabama Institute of Science and Technology, Chennai — 2022 –
+                  2026</p>
+                <p class="text-xs text-zinc-500 mt-1">CGPA: 8.05 / 10</p>
+                <p class="text-xs text-zinc-500 mt-2 leading-relaxed">
+                  <span class="text-zinc-400">Relevant Coursework:</span> DBMS, Software Engineering, Operating Systems,
+                  Computer Networks, DSA, OOP, Artificial Intelligence, Machine Learning, Requirements Analysis.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════
+           EXPERIENCE
+           ═══════════════════════════════════════════════ -->
+      <section id="experience" class="scroll-mt-20">
+        <div class="lab-panel p-6 sm:p-10">
+          <div class="section-header">
+            <span class="section-label text-amber-300">02</span>
+            <h2 class="section-title">Work Experience</h2>
+          </div>
+
+          <div class="flex flex-col sm:flex-row sm:items-start gap-4">
+            <div
+              class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0">
+              <i class="fa-solid fa-briefcase text-amber-300"></i>
+            </div>
+            <div>
+              <div class="flex flex-wrap items-center gap-3 mb-1">
+                <p class="text-sm text-white font-medium">Artificial Intelligence Intern</p>
+                <span class="lab-tag text-amber-300 border-amber-300/20 bg-amber-300/5">6 Months</span>
+              </div>
+              <p class="text-xs text-zinc-400">Tectra Technologies, Chennai — Nov 2025 – May 2026</p>
+
+              <ul class="mt-4 space-y-3">
+                <li class="exp-item">
+                  Integrated Large Language Models (LLMs) into a CRM system to automate student interactions using a
+                  chatbot, OCR marksheet extraction tool, course recommendation system, and an assistant for maternal
+                  services offering doula and nanny booking facilities.
+                </li>
+                <li class="exp-item">
+                  Developed AI-powered voice and document intelligence pipelines using speech-to-text (WhisperX), NLP,
+                  LLMs, Python, and data extraction tools to convert unstructured audio data into structured CRM records
+                  for customer service.
+                </li>
+                <li class="exp-item">
+                  Built a full-fledged hospital chatbot for booking doctors and medical tests, answering health-related
+                  queries, and surfacing insights about hospital services.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════
+           PROJECTS
+           ═══════════════════════════════════════════════ -->
+      <section id="projects" class="scroll-mt-20">
+        <div class="lab-panel p-6 sm:p-10">
+          <div class="section-header">
+            <span class="section-label text-violet-400">03</span>
+            <h2 class="section-title">Projects</h2>
+          </div>
+
+          <div class="space-y-4">
+
+            <!-- Project Card -->
+            <details class="project-card group" open>
+              <summary class="project-summary">
+                <div class="flex items-center gap-3">
+                  <i
+                    class="fa-solid fa-chevron-right text-[10px] text-zinc-500 transition-transform group-open:rotate-90"></i>
+                  <span class="text-sm text-white font-medium">AI Integration in CRM for Student Intelligence and
+                    Automation</span>
+                </div>
+                <span class="font-mono text-[10px] text-zinc-500">2026</span>
+              </summary>
+              <div class="project-body">
+                <ul class="space-y-2">
+                  <li class="exp-item">Enhanced a company CRM system by integrating AI-powered features, including
+                    conversational chatbots, voice intelligence, and automated data extraction, improving user
+                    experience and significantly reducing manual workload.</li>
+                  <li class="exp-item">Integrated AI features using WhisperX, OCR, LLMs, and FastAPI to automatically
+                    extract student insights from call recordings and marksheets, and developed a context-aware
+                    conversational chatbot for automated student support.</li>
+                </ul>
+                <div class="flex flex-wrap gap-2 mt-4">
+                  <span class="lab-tag">WhisperX</span>
+                  <span class="lab-tag">OCR</span>
+                  <span class="lab-tag">LLMs</span>
+                  <span class="lab-tag">FastAPI</span>
+                  <span class="lab-tag">Python</span>
+                </div>
+              </div>
+            </details>
+
+            <details class="project-card group">
+              <summary class="project-summary">
+                <div class="flex items-center gap-3">
+                  <i
+                    class="fa-solid fa-chevron-right text-[10px] text-zinc-500 transition-transform group-open:rotate-90"></i>
+                  <span class="text-sm text-white font-medium">AI-Based SDLC Assistant with Multi-Agent
+                    Architecture</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="lab-tag text-amber-300 border-amber-300/20 bg-amber-300/5 text-[9px]">IEEE
+                    Published</span>
+                  <span class="font-mono text-[10px] text-zinc-500">2026</span>
+                </div>
+              </summary>
+              <div class="project-body">
+                <ul class="space-y-2">
+                  <li class="exp-item">Developed an AI-powered assistant using a multi-agent architecture to automate
+                    the requirements gathering, planning, and system design phases of the SDLC, reducing manual effort
+                    by 70%.</li>
+                  <li class="exp-item">Implemented a Manager Agent to coordinate and monitor the Requirement, Planning,
+                    and Design agents, validate generated outputs, detect inconsistencies, and trigger regeneration for
+                    accurate results.</li>
+                  <li class="exp-item">Built specialized AI agents using Ollama (LLM), LangChain, LangGraph, and FastAPI
+                    to analyze user inputs and automatically generate SRS, project plans, and system design
+                    documentation.</li>
+                </ul>
+                <div class="flex flex-wrap gap-2 mt-4">
+                  <span class="lab-tag">LangGraph</span>
+                  <span class="lab-tag">LangChain</span>
+                  <span class="lab-tag">Ollama</span>
+                  <span class="lab-tag">FastAPI</span>
+                </div>
+              </div>
+            </details>
+
+            <details class="project-card group">
+              <summary class="project-summary">
+                <div class="flex items-center gap-3">
+                  <i
+                    class="fa-solid fa-chevron-right text-[10px] text-zinc-500 transition-transform group-open:rotate-90"></i>
+                  <span class="text-sm text-white font-medium">RAG-Based Conversational Chat Assistant</span>
+                </div>
+                <span class="font-mono text-[10px] text-zinc-500">2025</span>
+              </summary>
+              <div class="project-body">
+                <ul class="space-y-2">
+                  <li class="exp-item">Developed a document-based conversational AI chatbot using LangChain, Azure
+                    OpenAI, DeepLake vector database, and Streamlit, enabling users to upload PDFs and interact with
+                    them using a RAG framework.</li>
+                  <li class="exp-item">Implemented vector embeddings and semantic search to retrieve relevant document
+                    information and generate accurate, context-aware responses through an interactive web interface.
+                  </li>
+                </ul>
+                <div class="flex flex-wrap gap-2 mt-4">
+                  <span class="lab-tag">LangChain</span>
+                  <span class="lab-tag">Azure OpenAI</span>
+                  <span class="lab-tag">DeepLake</span>
+                  <span class="lab-tag">Streamlit</span>
+                  <span class="lab-tag">RAG</span>
+                </div>
+              </div>
+            </details>
+
+          </div>
+
+          <!-- Research & Publication -->
+          <div class="mt-10 pt-8 border-t border-white/10 publication-card cursor-pointer">
+            <h3 class="font-mono text-[10px] tracking-[0.2em] text-white uppercase mb-5">Research & Publications</h3>
+            <div class="flex flex-col sm:flex-row sm:items-start gap-4">
+              <div
+                class="w-12 h-12 rounded-xl bg-amber-300/5 border border-amber-300/20 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-award text-amber-300"></i>
+              </div>
+              <div>
+                <p class="text-sm text-white font-medium">AI-Based SDLC Assistant with Multi-Agent Architecture</p>
+                <p class="text-xs text-zinc-400 mt-1">IEEE International Conference on Communication, Computing and
+                  Electronics Systems (ICCCES) — 2026</p>
+                <p class="text-xs text-zinc-500 mt-2 leading-relaxed">
+                  Published a research paper indexed in IEEE Xplore, presenting a multi-agent AI system for automating
+                  SDLC phases using large language models and intelligent agents.
+                </p>
+                <a href="https://ieeexplore.ieee.org" target="_blank"
+                  class="inline-flex items-center gap-2 mt-3 text-xs text-cyan-400 hover:text-cyan-300 transition-colors">
+                  <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i> View Publication
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════
+           SKILLS
+           ═══════════════════════════════════════════════ -->
+      <section id="skills" class="scroll-mt-20">
+        <div class="lab-panel p-6 sm:p-10">
+          <div class="section-header">
+            <span class="section-label text-emerald-400">04</span>
+            <h2 class="section-title">Technical Skills</h2>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+            <div class="skill-group">
+              <h4 class="skill-group-title"><i class="fa-solid fa-code text-cyan-400 mr-2"></i>Programming</h4>
+              <div class="flex flex-wrap gap-2">
+                <span class="lab-tag">Python</span>
+                <span class="lab-tag">Java</span>
+                <span class="lab-tag">JavaScript</span>
+                <span class="lab-tag">SQL</span>
+              </div>
+            </div>
+
+            <div class="skill-group">
+              <h4 class="skill-group-title"><i class="fa-brands fa-html5 text-orange-400 mr-2"></i>Frontend Development</h4>
+              <div class="flex flex-wrap gap-2">
+                <span class="lab-tag">React</span>
+                <span class="lab-tag">HTML</span>
+                <span class="lab-tag">CSS</span>
+              </div>
+            </div>
+
+            <div class="skill-group">
+              <h4 class="skill-group-title"><i class="fa-solid fa-robot text-violet-400 mr-2"></i>AI & ML</h4>
+              <div class="flex flex-wrap gap-2">
+                <span class="lab-tag">LLMs</span>
+                <span class="lab-tag">Multi-Agentic Systems</span>
+                <span class="lab-tag">RAG</span>
+                <span class="lab-tag">LangChain</span>
+                <span class="lab-tag">LangGraph</span>
+                <span class="lab-tag">WhisperX</span>
+                <span class="lab-tag">Hugging Face</span>
+                <span class="lab-tag">NLP</span>
+                <span class="lab-tag">Computer Vision</span>
+              </div>
+            </div>
+
+            <div class="skill-group">
+              <h4 class="skill-group-title"><i class="fa-solid fa-server text-amber-300 mr-2"></i>Backend & APIs</h4>
+              <div class="flex flex-wrap gap-2">
+                <span class="lab-tag">FastAPI</span>
+                <span class="lab-tag">Node.js</span>
+                <span class="lab-tag">REST APIs</span>
+                <span class="lab-tag">WebSockets</span>
+              </div>
+            </div>
+
+            <div class="skill-group">
+              <h4 class="skill-group-title"><i class="fa-solid fa-database text-emerald-400 mr-2"></i>Databases</h4>
+              <div class="flex flex-wrap gap-2">
+                <span class="lab-tag">PostgreSQL</span>
+                <span class="lab-tag">MySQL</span>
+                <span class="lab-tag">MongoDB</span>
+                <span class="lab-tag">Redis</span>
+                <span class="lab-tag">Vector Databases</span>
+              </div>
+            </div>
+
+            <div class="skill-group">
+              <h4 class="skill-group-title"><i class="fa-solid fa-cloud text-sky-400 mr-2"></i>Cloud & DevOps</h4>
+              <div class="flex flex-wrap gap-2">
+                <span class="lab-tag">Git</span>
+                <span class="lab-tag">GitHub</span>
+                <span class="lab-tag">Docker</span>
+                <span class="lab-tag">Kubernetes</span>
+                <span class="lab-tag">CI/CD</span>
+              </div>
+            </div>
+
+            <div class="skill-group">
+              <h4 class="skill-group-title"><i class="fa-solid fa-gear text-rose-400 mr-2"></i>Engineering</h4>
+              <div class="flex flex-wrap gap-2">
+                <span class="lab-tag">SDLC</span>
+                <span class="lab-tag">System Integration</span>
+                <span class="lab-tag">RBAC</span>
+                <span class="lab-tag">Technical Documentation</span>
+                <span class="lab-tag">Troubleshooting</span>
+              </div>
+            </div>
+
+            <div class="skill-group">
+              <h4 class="skill-group-title"><i class="fa-solid fa-wrench text-zinc-400 mr-2"></i>Tools</h4>
+              <div class="flex flex-wrap gap-2">
+                <span class="lab-tag">VS Code</span>
+                <span class="lab-tag">Cursor IDE</span>
+                <span class="lab-tag">Antigravity</span>
+                <span class="lab-tag">Claude Code</span>
+                <span class="lab-tag">Postman</span>
+                <span class="lab-tag">Android Studio</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════
+           CERTIFICATIONS & INTERESTS
+           ═══════════════════════════════════════════════ -->
+      <section id="certifications" class="scroll-mt-20">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+          <!-- Certifications -->
+          <div class="lab-panel p-6 sm:p-8">
+            <div class="section-header-sm">
+              <span class="section-label text-sky-400">05</span>
+              <h2 class="section-title-sm">Certifications</h2>
+            </div>
+            <ul class="space-y-4">
+              <li class="flex items-start gap-3">
+                <div
+                  class="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0 mt-0.5">
+                  <i class="fa-brands fa-google text-[10px] text-sky-400"></i>
+                </div>
+                <div>
+                  <p class="text-xs text-white font-medium">Introduction to Generative AI</p>
+                  <p class="text-[10px] text-zinc-500">Google Cloud</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <div
+                  class="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0 mt-0.5">
+                  <i class="fa-solid fa-building text-[10px] text-blue-400"></i>
+                </div>
+                <div>
+                  <p class="text-xs text-white font-medium">Machine Learning — Dimensionality Reduction</p>
+                  <p class="text-[10px] text-zinc-500">IBM</p>
+                </div>
+              </li>
+              <li class="flex items-start gap-3">
+                <div
+                  class="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0 mt-0.5">
+                  <i class="fa-solid fa-building text-[10px] text-blue-400"></i>
+                </div>
+                <div>
+                  <p class="text-xs text-white font-medium">Fundamentals of Encryption & Quantum Safe Techniques</p>
+                  <p class="text-[10px] text-zinc-500">IBM</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Interests -->
+          <div class="lab-panel p-6 sm:p-8">
+            <div class="section-header-sm">
+              <span class="section-label text-rose-400">06</span>
+              <h2 class="section-title-sm">Interests</h2>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="interest-card">
+                <i class="fa-solid fa-chess-knight text-lg text-amber-300 mb-2"></i>
+                <p class="text-xs text-white font-medium">Chess</p>
+                <p class="text-[10px] text-zinc-500 mt-1">Logical thinking</p>
+              </div>
+              <div class="interest-card">
+                <i class="fa-solid fa-dumbbell text-lg text-emerald-400 mb-2"></i>
+                <p class="text-xs text-white font-medium">Strength Training</p>
+                <p class="text-[10px] text-zinc-500 mt-1">Fitness & discipline</p>
+              </div>
+              <div class="interest-card">
+                <i class="fa-solid fa-laptop-code text-lg text-cyan-400 mb-2"></i>
+                <p class="text-xs text-white font-medium">Freelancing</p>
+                <p class="text-[10px] text-zinc-500 mt-1">Websites & projects</p>
+              </div>
+              <div class="interest-card">
+                <i class="fa-solid fa-house text-lg text-violet-400 mb-2"></i>
+                <p class="text-xs text-white font-medium">Rent App</p>
+                <p class="text-[10px] text-zinc-500 mt-1">Currently building</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════
+           CONTACT
+           ═══════════════════════════════════════════════ -->
+      <section id="contact" class="scroll-mt-20">
+        <div class="lab-panel p-6 sm:p-10 text-center flex flex-col items-center">
+          <span class="section-label text-rose-400 mb-2">07</span>
+          <h2 class="text-xl font-light tracking-tight text-white mb-2">Let's Connect</h2>
+          <p class="text-xs text-zinc-500 font-light max-w-md mx-auto mb-8">
+            Currently open for full-time roles, freelance projects, and research collaborations in AI and software
+            engineering.
+          </p>
+
+          <div class="flex flex-wrap justify-center gap-3">
+            <a href="mailto:niran27405@gmail.com" class="lab-btn hover:border-cyan-400/40">
+              <i class="fa-solid fa-envelope text-cyan-400 text-[10px]"></i> Email Me
+            </a>
+            <a href="tel:+918946034384" class="lab-btn">
+              <i class="fa-solid fa-phone text-emerald-400 text-[10px]"></i> +91 8946034384
+            </a>
+            <a href="https://github.com" target="_blank" class="lab-btn">
+              <i class="fa-brands fa-github text-white text-[10px]"></i> GitHub
+            </a>
+            <a href="https://linkedin.com" target="_blank" class="lab-btn">
+              <i class="fa-brands fa-linkedin-in text-blue-400 text-[10px]"></i> LinkedIn
+            </a>
+            <a href="assets/Niranjan_Resume_Blr.pdf" download class="lab-btn">
+              <i class="fa-solid fa-download text-zinc-400 text-[10px]"></i> Resume
+            </a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="w-full py-6 text-center border-t border-white/5">
+      <p class="font-mono text-[9px] tracking-[0.12em] text-zinc-600 uppercase">
+        © 2026 Niranjan Purushothaman · Bangalore, India
+      </p>
+    </footer>
+
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/simplex-noise@2.4.0/simplex-noise.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/rocket.js"></script>
+  <script src="js/name3d.js"></script>
+  <script src="js/robot.js"></script>
+
+</body>
+
+</html>
