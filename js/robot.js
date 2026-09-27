@@ -301,7 +301,7 @@
         @media (max-width: 768px) {
           #ai-observer {
             top: 160px;
-            right: 4vw;
+            right: 12vw;
             transform: scale(0.85);
           }
         }
