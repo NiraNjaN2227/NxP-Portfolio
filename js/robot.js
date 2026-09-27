@@ -300,8 +300,9 @@
         /* Responsive adjustments */
         @media (max-width: 768px) {
           #ai-observer {
+            top: 20px;
             right: 4vw;
-            transform: scale(0.85) translateY(-50%);
+            transform: scale(0.85);
           }
         }
         
