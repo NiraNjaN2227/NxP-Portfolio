@@ -300,7 +300,7 @@
         /* Responsive adjustments */
         @media (max-width: 768px) {
           #ai-observer {
-            top: 80px;
+            top: 160px;
             right: 4vw;
             transform: scale(0.85);
           }
