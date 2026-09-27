@@ -349,7 +349,8 @@
         }, { passive: true });
       }
 
-      // 2. Direct Interaction (Click) - Removed per user request
+      // 2. Draggable Robot
+      this.setupDragging();
     }
 
     calculateGaze(mouseX, mouseY) {
@@ -367,6 +368,75 @@
 
       this.targetEyeX = Math.cos(angle) * distance;
       this.targetEyeY = Math.sin(angle) * distance;
+    }
+
+    setupDragging() {
+      let isDragging = false;
+      let startX, startY, initialLeft, initialTop;
+
+      const onPointerDown = (e) => {
+        // Prevent default if possible to avoid text selection
+        if (e.type === 'mousedown') e.preventDefault();
+
+        const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+        const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+        
+        isDragging = true;
+        startX = clientX;
+        startY = clientY;
+
+        // Fix position as absolute pixels, removing right/transform
+        const rect = this.robot.getBoundingClientRect();
+        this.robot.style.right = 'auto';
+        this.robot.style.transform = 'none';
+        this.robot.style.bottom = 'auto';
+        this.robot.style.left = rect.left + 'px';
+        this.robot.style.top = rect.top + 'px';
+
+        initialLeft = rect.left;
+        initialTop = rect.top;
+      };
+
+      const onPointerMove = (e) => {
+        if (!isDragging) return;
+        if (e.type === 'touchmove') e.preventDefault(); // Prevent scrolling while dragging
+        
+        const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+        const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+
+        const dx = clientX - startX;
+        const dy = clientY - startY;
+
+        // Constrain to window bounds roughly
+        let newLeft = initialLeft + dx;
+        let newTop = initialTop + dy;
+        
+        const rect = this.robot.getBoundingClientRect();
+        newLeft = Math.max(0, Math.min(window.innerWidth - rect.width, newLeft));
+        newTop = Math.max(0, Math.min(window.innerHeight - rect.height, newTop));
+
+        this.robot.style.left = newLeft + 'px';
+        this.robot.style.top = newTop + 'px';
+      };
+
+      const onPointerUp = () => {
+        isDragging = false;
+      };
+
+      // Add grab cursor hint
+      this.robot.style.cursor = 'grab';
+      this.robot.addEventListener('mousedown', () => { this.robot.style.cursor = 'grabbing'; });
+      window.addEventListener('mouseup', () => { this.robot.style.cursor = 'grab'; });
+
+      // Bind events directly to the chassis/robot container
+      this.robot.addEventListener('mousedown', onPointerDown);
+      this.robot.addEventListener('touchstart', onPointerDown, { passive: false });
+
+      window.addEventListener('mousemove', onPointerMove, { passive: false });
+      window.addEventListener('touchmove', onPointerMove, { passive: false });
+
+      window.addEventListener('mouseup', onPointerUp);
+      window.addEventListener('touchend', onPointerUp);
     }
 
     animateGaze() {
